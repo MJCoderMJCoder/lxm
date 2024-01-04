@@ -57,6 +57,7 @@ public class Main {
             int sum = sum(pre17s);
             int temp = sum % 31;
             temp = temp == 0 ? 31 : temp;
+            System.out.println(code[31 - temp] + "");
 
             return creditCode.substring(17, 18).equals(code[31 - temp] + "") ? isCreditCode : error_CreditCode;
         }
@@ -108,45 +109,47 @@ public class Main {
     }
 
     public static void main(String[] args) {
-        BufferedWriter writer = null;
-        try {
-            File directory = new File("C:\\home\\");
-            if (!directory.exists()) {
-                directory.mkdirs();
-            }
-            List<String> creditCodeList = Files.lines(Paths.get("C:\\home\\出票人账号（统一社会信用代码）.txt")).collect(Collectors.toList());
-            List<String> drawerList = Files.lines(Paths.get("C:\\home\\出票人.txt")).collect(Collectors.toList());
-            writer = new BufferedWriter(new FileWriter("C:\\home\\校验结果.txt"));
-            for (int i = 0; i < creditCodeList.size(); i++) {
-                String drawer = drawerList.get(i);
-                String creditCode = creditCodeList.get(i);
-                if (!"true".equalsIgnoreCase(validateCreditCode(creditCode).trim())) {
-                    while (drawer.length() < 30) {
-                        drawer += "\u3000";
-                    }
-                    while (creditCode.length() < 20) {
-                        creditCode += " ";
-                    }
-                    writer.write(drawer + "-" + creditCode + "：" + validateCreditCode(creditCode) + "\r\n");
-                }
-            }
-        } catch (Exception exception) {
-            try {
-                writer = new BufferedWriter(new FileWriter("C:\\home\\校验结果.txt"));
-                writer.write("在【C】盘的【home】目录下未找到相关的文件【出票人账号（统一社会信用代码）.txt和出票人.txt】");
-            } catch (Exception exception1) {
-                exception1.printStackTrace();
-            }
-            exception.printStackTrace();
-        } finally {
-            if (writer != null) {
-                try {
-                    writer.flush();
-                    writer.close();
-                } catch (Exception exception) {
-                    exception.printStackTrace();
-                }
-            }
-        }
+        System.out.println(validateCreditCode("91350200M0000NPE7T"));
+        System.out.println(validateCreditCode("91350200M0000NPE7T"));
+//        BufferedWriter writer = null;
+//        try {
+//            File directory = new File("C:\\home\\");
+//            if (!directory.exists()) {
+//                directory.mkdirs();
+//            }
+//            List<String> creditCodeList = Files.lines(Paths.get("C:\\home\\出票人账号（统一社会信用代码）.txt")).collect(Collectors.toList());
+//            List<String> drawerList = Files.lines(Paths.get("C:\\home\\出票人.txt")).collect(Collectors.toList());
+//            writer = new BufferedWriter(new FileWriter("C:\\home\\校验结果.txt"));
+//            for (int i = 0; i < creditCodeList.size(); i++) {
+//                String drawer = drawerList.get(i);
+//                String creditCode = creditCodeList.get(i);
+//                if (!"true".equalsIgnoreCase(validateCreditCode(creditCode).trim())) {
+//                    while (drawer.length() < 30) {
+//                        drawer += "\u3000";
+//                    }
+//                    while (creditCode.length() < 20) {
+//                        creditCode += " ";
+//                    }
+//                    writer.write(drawer + "-" + creditCode + "：" + validateCreditCode(creditCode) + "\r\n");
+//                }
+//            }
+//        } catch (Exception exception) {
+//            try {
+//                writer = new BufferedWriter(new FileWriter("C:\\home\\校验结果.txt"));
+//                writer.write("在【C】盘的【home】目录下未找到相关的文件【出票人账号（统一社会信用代码）.txt和出票人.txt】");
+//            } catch (Exception exception1) {
+//                exception1.printStackTrace();
+//            }
+//            exception.printStackTrace();
+//        } finally {
+//            if (writer != null) {
+//                try {
+//                    writer.flush();
+//                    writer.close();
+//                } catch (Exception exception) {
+//                    exception.printStackTrace();
+//                }
+//            }
+//        }
     }
 }
